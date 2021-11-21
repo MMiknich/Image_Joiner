@@ -1,0 +1,18 @@
+version: 3
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: flowMaster
+      POSTGRES_PASSWORD: Dat_assword
+      POSTGRES_DB: sitedb
+  
+  site:
+    build: site/
+    ports:
+      - 5000:5000
+    depends_on:
+      - db

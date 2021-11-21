@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}Upload{% endblock %} {% block
+content%}
+
+<h3 align="center">Upload your pictures or GIF</h3>
+
+<form method=post enctype=multipart/form-data>
+  <div class="form-group">
+    <label for="filename"> File name</label>
+    <input type="text" class="form-control" id="filename" name="filename" placeholder="Desired filename.gif" />
+
+    <br />
+
+    <label for="formFileMultiple" class="form-label">Enter multiple jpegs, or pngs</label>
+    <input class="form-control" type="file" id="file" name="file" multiple />
+    <!-- <div class="form-check"> -->
+      <input class="form-check-input" type="checkbox" value="" id="share" name="share">
+      <label class="form-check-label" for="defaultCheck1"> Make public </label>
+    <!-- </div> -->
+    <!-- <div class="form-check"> -->
+      <input class="form-check-input" type="checkbox" value="" id="download" name="download">
+      <label class="form-check-label" for="defaultCheck1"> Download </label>
+    <!-- </div> -->
+    
+    <br />
+    <div class="d-grid gap-2 col-1 mx-auto">
+      <button type="submit" class="btn btn-success btn-lg">Upload</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
