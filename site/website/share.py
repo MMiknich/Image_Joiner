@@ -1,33 +1,16 @@
-# from flask import Blueprint, render_template, request, flash, jsonify
-# from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, flash, jsonify
+from flask_login import current_user
 # from .models import Note
-# from . import db
+from . import UPLOAD_FOLDER
 # import json
 
-# share = Blueprint('share', __name__)
+share = Blueprint('share', __name__)
 
 
-# @views.route('/', methods=['GET', 'POST'])
-# def home():
-#     print("home")
-#     if request.method == 'POST':
-#         note = request.form.get('note')
-
-#         if len(note) < 1:
-#             flash('Note is too short!', category='error')
-#         else:
-#             new_note = Note(data=note, user_id=current_user.id)
-#             db.session.add(new_note)
-#             db.session.commit()
-#             flash('Note added!', category='success')
-#             print(current_user)
-
-#     return render_template("home.html", user=current_user)
-
-# @views.route('/upload', methods=['GET', 'POST'])
-# @login_required
-# def upload():
-#     return render_template("upload.html", user=current_user)
+@share.route('/share/<url_gif>')
+def share(url_gif):
+    
+    return render_template("share.html", user=current_user, gif_path = UPLOAD_FOLDER+url_gif, gif_name = )
     
 
 # @views.route('/delete-note', methods=['POST'])

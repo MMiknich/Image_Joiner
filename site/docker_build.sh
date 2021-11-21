@@ -1,0 +1,1 @@
+docker build . -t Image_Joiner

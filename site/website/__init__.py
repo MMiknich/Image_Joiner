@@ -5,7 +5,7 @@ from flask_login import LoginManager, UserMixin
 from sqlalchemy.sql import func
 
 
-UPLOAD_FOLDER = './uploads/'
+UPLOAD_FOLDER = '/site/uploads/'
 db = SQLAlchemy()
 
 
@@ -49,7 +49,8 @@ class User(db.Model, UserMixin):
         
 class Files(db.Model):
     gif_ig = db.Column(db.Integer, primary_key=True)
-    gif_pickle = db.Column(db.PickleType)
+    gif_url = db.Column(db.String(150))
+    gif_name = db.Column(db.String(150))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
         
