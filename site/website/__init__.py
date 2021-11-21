@@ -5,39 +5,40 @@ from flask_login import LoginManager, UserMixin
 from sqlalchemy.sql import func
 
 
-UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+UPLOAD_FOLDER = './uploads/'
 db = SQLAlchemy()
+
+
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     
     app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://flowMaster:Dat_assword@localhost/sitedb'
-    db = SQLAlchemy(app)
-    db.create_all(app=app)
-    print(type(db))
+    # db = SQLAlchemy(app)
+    # db.create_all(app=app)
 
     from .views import views
     from .auth import auth
-    from .share import share
+    # from .share import share
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-    app.register_blueprint(share, url_prefix='/')
+    # app.register_blueprint(share, url_prefix='/')
 
 
 
-    login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
-    login_manager.init_app(app)
+    # login_manager = LoginManager()
+    # login_manager.login_view = 'auth.login'
+    # login_manager.init_app(app)
 
-    @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    # @login_manager.user_loader
+    # def load_user(id):
+    #     return User.query.get(int(id))
 
     return app
+
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

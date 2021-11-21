@@ -1,11 +1,9 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect
 from flask.helpers import url_for
 from flask_login import login_required, current_user
-from . import Files, Users
+from . import Files, User
 from . import db
-import json
-
-from .utils import typecheck
+from .utils import typecheck, gif_from_images
 
 import os
 
@@ -36,12 +34,12 @@ def home():
     return render_template("home.html", user=current_user)
 
 @views.route('/upload', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def upload():
     if request.method == 'POST':
             # flash('No file part')
         gif_filename = request.form.get('filename')
-        print(request.form.get('filename'),len(),)
+        print(request.form.get('filename'))
         file_list = request.files.getlist('file')
         
         ftype = None
@@ -59,6 +57,15 @@ def upload():
         if typecheck(file_list[0].filename) == 'gif':
             if request.form.get('download') is not None:
                 flash('What the point of downloading?)')
+                
+            if request.form.get('share') is not None:
+            # send_to_sql()
+            # geturl()
+                pass
+        else:
+            if request.form.get('download') is not None:
+                print("Hop Hey")
+                gif_from_images(file_list, gif_filename)
                 
             if request.form.get('share') is not None:
             # send_to_sql()
@@ -83,15 +90,3 @@ def upload():
         
     return render_template("upload.html", user=current_user)
     
-
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-    return jsonify({})
