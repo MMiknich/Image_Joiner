@@ -6,7 +6,7 @@ To start it:
 
 
 clone repo:
-> git clone https://github.com/MMiknich/Image_Joiner.git; cd Image_Joiner
+> git clone https://github.com/MMiknich/Image_Joiner.git; cd Image_Joiner; mkdir postgres_data
 
 
 just run:
