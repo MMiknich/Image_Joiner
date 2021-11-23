@@ -12,15 +12,19 @@ content%}
 
     <label for="formFileMultiple" class="form-label">Enter multiple jpegs, or pngs</label>
     <input class="form-control" type="file" id="file" name="file" multiple />
-    <!-- <div class="form-check"> -->
-      <input class="form-check-input" type="checkbox" value="" id="share" name="share">
-      <label class="form-check-label" for="defaultCheck1"> Make public </label>
-    <!-- </div> -->
-    <!-- <div class="form-check"> -->
-      <input class="form-check-input" type="checkbox" value="" id="download" name="download">
-      <label class="form-check-label" for="defaultCheck1"> Download </label>
-    <!-- </div> -->
-    
+
+    <br />
+
+    <label for="formFileMultiple" class="form-label">What to do</label>
+    <select class="form-select" aria-label="Default select example" id="type" name="type">
+      <option selected value="share">Share</option>
+      <option value="download">Download</option>
+    </select>
+    <br />
+
+    <label for="fps" class="form-label">FPS from 1 to 15</label>
+    <input type="range" class="form-range" min="1" max="15" step="1" id="fps" name="fps">
+
     <br />
     <div class="d-grid gap-2 col-1 mx-auto">
       <button type="submit" class="btn btn-success btn-lg">Upload</button>

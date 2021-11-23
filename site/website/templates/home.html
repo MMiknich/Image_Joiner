@@ -1,20 +1,37 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content%}
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-  {% for note in user.notes %}
-  <li class="list-group-item">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
-  {% endfor %}
-</ul>
 <form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div class="row" align="center">
+    {% if user.is_authenticated %}
+    <div class="col">
+      <h1>Generate & Share!</h1>
+    </div>
+    {% else %}
+    <div class="col">
+      <h1>Sign to share files</h1>
+    </div>
+    {% endif %}
+  </div>
   <br />
   <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
+    <button type="submit" class="btn btn-primary">Regenerate</button>
   </div>
 </form>
+<br />
+{% if gifs%}
+{% for row in gifs%}
+<div class="row" align="center">
+  {% for colmn in row%}
+  <div class="col">
+    <figure class="figure">
+      <img width="300" height="300" src="{{url_for('static', filename='uploads/'+colmn+'.gif')}}" class="img rounded "
+        alt="Gif">
+    </figure>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{%else%}
+<h1>If u see this, go to /setup</h1>
+{% endif %}
 {% endblock %}

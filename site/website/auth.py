@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from . import User, db
+from .models import User
+from .utils import gif_to_db
+from . import db
 
 auth = Blueprint('auth', __name__)
 
@@ -14,6 +16,7 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
+        print(user)
         if user:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
@@ -63,3 +66,19 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+
+@auth.route('/setup')
+def setup():
+    new_user = User(email="fbi@fsb.su", first_name="flowMaster", password=generate_password_hash(
+                "admin", method='sha256'))
+    db.session.add(new_user)
+    db.session.commit()
+    login_user(new_user, remember=False)
+    for gif in ["ai1", "ai2", "ai3", "ai4", "argument", "cat-vibing", "cat-vibing2", "fire", "rob", "rob2",
+                "rob3", "rob4", "rob5", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "wake"]:
+        gif_to_db(url=gif, name=gif, user_id=current_user.id)
+    logout_user()
+    flash("Setuped")
+    return redirect(url_for('views.home'))
+    
